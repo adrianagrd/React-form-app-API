@@ -3,36 +3,24 @@ import { useFormFilter, usePersons, useForm } from "./hooks";
 
 const App = () => {
 
-	const { newName, newNumber, setNewName, setNewNumber } = useForm();
-	const { newFilter, setNewFilter } = useFormFilter();
-	const { persons, setPersons} = usePersons();
+	const { newName, newNumber, handleNewNameValue, handleNewNumberValue } = useForm();
+	const { newFilter, handleNewFilterValue } = useFormFilter();
+	const { persons, handleChangePersonsValue} = usePersons();
 	
-	const addNewPerson = (event) => {
-		event.preventDefault();
-		if (!persons.some(person => (person.name === newName))) {
-			const newPerson = {
-				id: Date.now(),
-				name: newName,
-				number: newNumber
-			}
-			setPersons([...persons, newPerson])
-		} else {
-			alert(`${newName} is already added to the phonebook`)
-		}
-	};
-
 	return (
 		<div>
 			<h2>Phonebook</h2>
-			<Filter setNewFilter={ setNewFilter }/>
+			<Filter setNewFilter={ handleNewFilterValue }/>
 			<PersonForm 
 				newName={ newName } 
-				setNewName={ setNewName } 
+				setNewName={ handleNewNameValue } 
 				newNumber={ newNumber }
-				setNewNumber={ setNewNumber }
-				addNewPerson={ addNewPerson }
+				handleNewNumber={ handleNewNumberValue }
+				persons={ persons }
+				setPersons={ handleChangePersonsValue }
+
 			/>
-			<Numbers newFilter={newFilter} persons={persons}/>
+			<Numbers newFilter={ newFilter } persons={ persons }/>
 		</div>
 	);
 };

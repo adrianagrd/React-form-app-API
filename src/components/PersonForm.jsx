@@ -1,4 +1,18 @@
-export const PersonForm = ({ newName, setNewName, newNumber, setNewNumber, addNewPerson }) => {
+export const PersonForm = ({ newName, setNewName, newNumber, handleNewNumber, persons, setPersons }) => {
+
+    const addNewPerson = (event) => {
+		event.preventDefault();
+		if (!persons.some(person => (person.name === newName))) {
+			const newPerson = {
+				id: Date.now(),
+				name: newName,
+				number: newNumber
+			}
+			setPersons([...persons, newPerson])
+		} else {
+			alert(`${newName} is already added to the phonebook`)
+		}
+	};
 
     return (
         <div>
@@ -6,10 +20,10 @@ export const PersonForm = ({ newName, setNewName, newNumber, setNewNumber, addNe
                 <form onSubmit={ addNewPerson }>
                     <div>
                         <label htmlFor="new-Name">Name: </label>
-                        <input id="new-Name" value={ newName } onChange={(event) => setNewName(event.target.value)} />
+                        <input id="new-Name" value={ newName } onChange={ setNewName } />
                         <br /><br />
                         <label htmlFor="new-Number">Number: </label>
-                        <input id="new-Number" value={ newNumber } onChange={(event) => setNewNumber(event.target.value)} />
+                        <input id="new-Number" value={ newNumber } onChange={ handleNewNumber } />
                     </div>
                     <br /><br />
                     <div>
