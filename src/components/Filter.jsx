@@ -1,4 +1,4 @@
-export const Filter = ( setNewFilter ) => {
+export const Filter = ({ setNewFilter }) => {
 
     return (
         <form>
